@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OWE-ASIS — Dinner Billfolio &amp; Settlement</title>
+  <meta name="description" content="Luxury dinner billfolio and exact check settlement. Splits restaurant dining bills down to the exact paise with leather bill book presentation and persistent memory.">
+  <meta property="og:title" content="OWE-ASIS — Dinner Billfolio &amp; Settlement">
+  <meta property="og:description" content="Luxury dinner billfolio and exact check settlement. Splits restaurant dining bills down to the exact paise with leather bill book presentation and persistent memory.">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <div class="folio-backdrop">
+    <!-- Folio Controls Top Bar -->
+    <div class="folio-top-controls">
+      <div class="header-time-pill">
+        <span class="time-label">SERVICE TIME</span>
+        <span id="liveTimeDisplay" class="time-val">--:--:-- --</span>
+      </div>
+      <div class="header-actions">
+        <button type="button" id="toggleBookBtn" class="btn-folio-action" aria-label="Toggle leather billfold cover">
+          <span id="toggleBookLabel">Close Folio</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Main Luxury Leather Bill Book Presenter with 3D Perspective -->
+    <div class="book-viewport" id="bookViewport">
+      <div class="bill-book book-open" id="billBook">
+        
+        <!-- 3D LEATHER BOOK COVER (ANIMATES OPEN ON REFRESH) -->
+        <div class="book-cover" id="bookCover" aria-hidden="true">
+          <div class="cover-leather">
+            <div class="cover-stitch"></div>
+            <!-- Circular Premium Gold Foil Medallion Seal -->
+            <div class="circular-medallion">
+              <div class="medallion-outer-ring">
+                <div class="medallion-inner-ring">
+                  <span class="medallion-est">EST. 2026</span>
+                  <div class="medallion-title">OWE-ASIS</div>
+                  <div class="medallion-stars">★ ★ ★</div>
+                  <span class="medallion-sub">TABLESIDE BILLFOLIO</span>
+                  <span class="medallion-foot">EXACT SETTLEMENT</span>
+                </div>
+              </div>
+            </div>
+            <!-- Brass Corner Protectors -->
+            <div class="brass-corner brass-corner-tl"></div>
+            <div class="brass-corner brass-corner-tr"></div>
+            <div class="brass-corner brass-corner-bl"></div>
+            <div class="brass-corner brass-corner-br"></div>
+            <!-- Golden Folio Clasp Motif -->
+            <div class="cover-clasp">
+              <span class="clasp-rivet"></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- BOOK INTERIOR (PAGES INSIDE THE LEATHER FOLIO) -->
+        <div class="book-interior">
+          <!-- Leather Embossed Header -->
+          <header class="book-header">
+            <div class="header-emboss">
+              <div class="crest-mark">
+                <span class="crest-roman">EST. 2026</span>
+                <h1 class="brand-title">OWE-ASIS</h1>
+                <span class="crest-sub">TABLESIDE BILLFOLIO &amp; EXACT SETTLEMENT</span>
+              </div>
+            </div>
+          </header>
+
+          <!-- Folio Book Pages Grid -->
+          <main class="folio-spread">
+            <!-- Left Leaf: Bill Specification Docket -->
+            <section class="leaf leaf-left" aria-labelledby="docket-heading">
+              <div class="leaf-paper">
+                <div class="paper-clip-bar" aria-hidden="true">
+                  <span class="clip-brass"></span>
+                </div>
+
+                <div class="docket-heading-group">
+                  <span class="docket-tag">TABLE SPECIFICATION</span>
+                  <h2 id="docket-heading" class="docket-title">Bill Particulars</h2>
+                </div>
+
+                <!-- Quick Preset Tabs -->
+                <div class="preset-strip" role="group" aria-label="Sample dinner presets">
+                  <span class="preset-intro">Quick Samples:</span>
+                  <button type="button" class="preset-chip" data-occasion="Friday Tasting Menu" data-bill="1200" data-people="4">
+                    ₹1,200 · 4 Guests
+                  </button>
+                  <button type="button" class="preset-chip" data-occasion="Terrace Dinner" data-bill="100" data-people="3">
+                    ₹100 · 3 Guests
+                  </button>
+                  <button type="button" class="preset-chip" data-occasion="Late Night Sharing" data-bill="1" data-people="7">
+                    ₹1 · 7 Guests
+                  </button>
+                </div>
+
+                <!-- Input Form -->
+                <form id="splitterForm" class="docket-form" novalidate>
+                  <!-- Occasion Name -->
+                  <div class="form-field">
+                    <label for="occasionInput" class="field-label">
+                      OCCASION / TABLE NAME <span class="required-star">*</span>
+                    </label>
+                    <input 
+                      type="text" 
+                      id="occasionInput" 
+                      name="occasion" 
+                      class="field-input" 
+                      placeholder="e.g. Table 12 · Chef's Dinner" 
+                      autocomplete="off"
+                      required
+                    >
+                    <span class="field-caption">Enter the dining occasion or restaurant table reference</span>
+                  </div>
+
+                  <!-- Bill Amount -->
+                  <div class="form-field">
+                    <label for="billInput" class="field-label">
+                      TOTAL BILL AMOUNT (₹) <span class="required-star">*</span>
+                    </label>
+                    <div class="currency-group">
+                      <span class="currency-sym" aria-hidden="true">₹</span>
+                      <input 
+                        type="number" 
+                        id="billInput" 
+                        name="billAmount" 
+                        class="field-input currency-input" 
+                        placeholder="0.00" 
+                        step="0.01" 
+                        min="0.01"
+                        required
+                      >
+                    </div>
+                    <span class="field-caption">Enter the invoice amount in rupees (calculated in exact integer paise)</span>
+                  </div>
+
+                  <!-- Number of People -->
+                  <div class="form-field">
+                    <label for="peopleInput" class="field-label">
+                      NUMBER OF GUESTS <span class="required-star">*</span>
+                    </label>
+                    <div class="stepper-group">
+                      <button type="button" class="step-ctrl" id="decPeopleBtn" aria-label="Decrease guest count">−</button>
+                      <input 
+                        type="number" 
+                        id="peopleInput" 
+                        name="peopleCount" 
+                        class="field-input step-input" 
+                        placeholder="4" 
+                        step="1" 
+                        min="1"
+                        required
+                      >
+                      <button type="button" class="step-ctrl" id="incPeopleBtn" aria-label="Increase guest count">+</button>
+                    </div>
+                    <span class="field-caption">Must be a whole number of guests (minimum 1)</span>
+                  </div>
+
+                  <!-- Validation Notice Box -->
+                  <div id="errorAlert" class="notice-box hidden" role="alert" aria-live="polite">
+                    <div class="notice-bar"></div>
+                    <div class="notice-body">
+                      <strong class="notice-title">CALCULATION NOTICE</strong>
+                      <p id="errorMessage" class="notice-detail"></p>
+                    </div>
+                  </div>
+
+                  <!-- Primary Form Actions -->
+                  <div class="form-actions">
+                    <button type="submit" id="splitBtn" class="btn btn-gold">
+                      CALCULATE SPLIT
+                    </button>
+                    <button type="button" id="resetBtn" class="btn btn-subtle">
+                      RESET
+                    </button>
+                  </div>
+                </form>
+
+                <div class="paper-footer-meta">
+                  <span id="storageStatusText">Persistence: Memory active</span>
+                </div>
+              </div>
+            </section>
+
+            <!-- Right Leaf: Authentic Restaurant Check Leaf -->
+            <section class="leaf leaf-right" aria-labelledby="receipt-leaf-title">
+              <div class="receipt-paper-holder">
+                <!-- Brass corner tuck accents -->
+                <div class="corner-tuck corner-tl" aria-hidden="true"></div>
+                <div class="corner-tuck corner-tr" aria-hidden="true"></div>
+
+                <!-- Empty State / Standby View -->
+                <div id="receiptPlaceholder" class="receipt-standby">
+                  <div class="standby-crest">OWE-ASIS</div>
+                  <h3 id="receipt-leaf-title" class="standby-title">AWAITING BILL PARTICULARS</h3>
+                  <p class="standby-copy">
+                    Specify the occasion, total bill amount, and party count on the left leaf, then select <strong>Calculate Split</strong> to generate the exact itemized guest check.
+                  </p>
+                  <div class="standby-rule"></div>
+                  <span class="standby-foot">Exact rupee and paise allocation guarantee</span>
+                </div>
+
+                <!-- Active Itemized Receipt Check -->
+                <div id="billReceipt" class="guest-check hidden">
+                  <!-- Top Perforation Sawtooth -->
+                  <div class="perforation-cut cut-top" aria-hidden="true"></div>
+
+                  <div class="check-body">
+                    <div class="check-top">
+                      <div class="restaurant-logo">THE GRAND SPLIT</div>
+                      <div class="receipt-subtitle">DINNER CHECK &amp; GUEST SETTLEMENT</div>
+                      <div class="check-sep-dotted"></div>
+                      
+                      <div class="check-meta-list">
+                        <div class="meta-item">
+                          <span class="meta-label">OCCASION:</span>
+                          <span class="meta-data" id="receiptOccasion">Tasting Dinner</span>
+                        </div>
+                        <div class="meta-item">
+                          <span class="meta-label">DATE &amp; TIME:</span>
+                          <span class="meta-data" id="receiptTimestamp">--</span>
+                        </div>
+                        <div class="meta-item">
+                          <span class="meta-label">CHECK REF:</span>
+                          <span class="meta-data font-mono" id="receiptRef">#SPL-0001</span>
+                        </div>
+                        <div class="meta-item">
+                          <span class="meta-label">GUESTS:</span>
+                          <span class="meta-data" id="receiptGuests">4</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Primary Visual Hero Anchor -->
+                    <div class="check-primary-anchor">
+                      <span class="anchor-lead">PRIMARY SHARE PER GUEST</span>
+                      <div class="anchor-value" id="receiptHeroAmount">₹0.00</div>
+                      <span class="anchor-caption" id="receiptHeroNote">Equal share</span>
+                    </div>
+
+                    <div class="check-sep-dotted"></div>
+
+                    <!-- Guest Itemized Shares Table -->
+                    <div class="check-table-headings">
+                      <span>GUEST</span>
+                      <span>SHARE PAYABLE</span>
+                    </div>
+                    <div class="check-sep-solid"></div>
+
+                    <div class="check-rows-container" id="receiptItemsList">
+                      <!-- Dynamically Generated Guest Rows -->
+                    </div>
+
+                    <div class="check-sep-dotted"></div>
+
+                    <!-- Totals & Balance Verification -->
+                    <div class="check-totals">
+                      <div class="total-row">
+                        <span class="t-label">TOTAL INVOICE:</span>
+                        <span class="t-val" id="receiptOriginalBill">₹0.00</span>
+                      </div>
+                      <div class="total-row">
+                        <span class="t-label">SUM OF ALL SHARES:</span>
+                        <span class="t-val" id="receiptSharesSum">₹0.00</span>
+                      </div>
+                      <div class="total-row balance-row">
+                        <span class="t-label">VARIANCE:</span>
+                        <span class="t-val text-balanced" id="receiptDifference">₹0.00 (EXACT)</span>
+                      </div>
+                    </div>
+
+                    <!-- Check Verification Stamp & Barcode -->
+                    <div class="check-auth">
+                      <div class="auth-seal">
+                        <span class="seal-inner">BALANCED &amp; VERIFIED</span>
+                      </div>
+                      <div class="check-barcode" aria-hidden="true">
+                        <div class="barcode-bars"></div>
+                        <span class="barcode-text" id="receiptBarcodeNum">8901234567890</span>
+                      </div>
+                      <p class="check-closing">TABLE SETTLEMENT COMPLETE</p>
+                    </div>
+                  </div>
+
+                  <!-- Bottom Perforation Sawtooth -->
+                  <div class="perforation-cut cut-bottom" aria-hidden="true"></div>
+
+                  <!-- Guest Check Actions Toolbar -->
+                  <div class="check-action-bar">
+                    <button type="button" id="copyBreakdownBtn" class="action-btn">
+                      <svg class="action-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                      </svg>
+                      <span id="copyBtnText">Copy Check</span>
+                    </button>
+                    <button type="button" id="printReceiptBtn" class="action-btn">
+                      <svg class="action-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <polyline points="6 9 6 2 18 2 18 9"></polyline>
+                        <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+                        <rect x="6" y="14" width="12" height="8"></rect>
+                      </svg>
+                      <span>Print Check</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </main>
+
+          <footer class="book-footer">
+            <span class="footer-note">OWE-ASIS Tableside Billfolio · Integer Paise Exact Allocation</span>
+          </footer>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="./script.js"></script>
+</body>
+</html>
